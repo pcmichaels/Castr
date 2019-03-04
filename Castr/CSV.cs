@@ -17,16 +17,18 @@ namespace CastDataAs
         
         public T CastAsStruct<T>()
         {
+            // Have to box the reference first
             var newObject = (object)Activator.CreateInstance<T>();
             var properties = typeof(T).GetProperties();            
             int fieldIdx = 0;
 
             foreach(var prop in properties)
             {
-                if (fieldIdx > _fields.Length) break;
+                if (fieldIdx >= _fields.Length) break;
                 prop.SetValue(newObject, _fields[fieldIdx++], null);
             }
 
+            // Unbox and return
             return (T)newObject;
         }
     }
