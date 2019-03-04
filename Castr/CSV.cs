@@ -14,7 +14,22 @@ namespace CastDataAs
             _delimiter = delimiter;
             _fields = csv.Split(delimiter.ToCharArray());
         }
-        
+
+        public T CastAsClass<T>()
+        {
+            var newObject = Activator.CreateInstance<T>();
+            var properties = typeof(T).GetProperties();
+            int fieldIdx = 0;
+
+            foreach (var prop in properties)
+            {
+                if (fieldIdx >= _fields.Length) break;
+                prop.SetValue(newObject, _fields[fieldIdx++], null);
+            }
+
+            return newObject;
+        }
+
         public T CastAsStruct<T>()
         {
             // Have to box the reference first

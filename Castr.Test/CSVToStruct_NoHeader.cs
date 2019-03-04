@@ -17,9 +17,9 @@ namespace CastDataAs.Test
             var newStruct = csv.CastAsStruct<SimpleTestStruct>();
 
             // Assert
-            Assert.Equal("this", newStruct.Field1);
-            Assert.Equal("is", newStruct.Field2);
-            Assert.Equal("data", newStruct.Field3);
+            Assert.Equal("this", newStruct.Property1);
+            Assert.Equal("is", newStruct.Property2);
+            Assert.Equal("data", newStruct.Property3);
         }
 
         [Fact]
@@ -33,9 +33,9 @@ namespace CastDataAs.Test
             var newStruct = csv.CastAsStruct<SimpleTestStruct>();
 
             // Assert
-            Assert.Equal("this", newStruct.Field1);
-            Assert.Equal("is", newStruct.Field2);
-            Assert.Equal("data", newStruct.Field3);
+            Assert.Equal("this", newStruct.Property1);
+            Assert.Equal("is", newStruct.Property2);
+            Assert.Equal("data", newStruct.Property3);
         }
 
         [Fact]
@@ -49,9 +49,9 @@ namespace CastDataAs.Test
             var newStruct = csv.CastAsStruct<SimpleTestStruct>();
 
             // Assert
-            Assert.Equal("this", newStruct.Field1);
-            Assert.Equal("is", newStruct.Field2);
-            Assert.Null(newStruct.Field3);
+            Assert.Equal("this", newStruct.Property1);
+            Assert.Equal("is", newStruct.Property2);
+            Assert.Null(newStruct.Property3);
         }
 
     }

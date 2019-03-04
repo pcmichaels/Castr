@@ -4,7 +4,7 @@ using System.Text;
 
 namespace CastDataAs.Test.TestData
 {
-    public struct SimpleTestStruct
+    public class SimpleTestClass
     {
         public string Property1 { get; set; }
         public string Property2 { get; set; }
