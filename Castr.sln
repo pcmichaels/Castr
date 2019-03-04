@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28606.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Castr", "Castr\Castr.csproj", "{0CC22A7C-F2EA-45CD-B9FD-B7AA17401EB6}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Castr.Test", "Castr.Test\Castr.Test.csproj", "{C480161C-9346-429C-B452-269403C8672E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClassLibrary1", "ClassLibrary1\ClassLibrary1.csproj", "{3E1CCE28-1BD3-4D71-8025-CDD7F45E7B42}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0CC22A7C-F2EA-45CD-B9FD-B7AA17401EB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CC22A7C-F2EA-45CD-B9FD-B7AA17401EB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CC22A7C-F2EA-45CD-B9FD-B7AA17401EB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CC22A7C-F2EA-45CD-B9FD-B7AA17401EB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C480161C-9346-429C-B452-269403C8672E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C480161C-9346-429C-B452-269403C8672E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C480161C-9346-429C-B452-269403C8672E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C480161C-9346-429C-B452-269403C8672E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3E1CCE28-1BD3-4D71-8025-CDD7F45E7B42}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3E1CCE28-1BD3-4D71-8025-CDD7F45E7B42}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3E1CCE28-1BD3-4D71-8025-CDD7F45E7B42}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3E1CCE28-1BD3-4D71-8025-CDD7F45E7B42}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {090F7320-58A0-4144-9DAD-B5C0F54D5F1F}
+	EndGlobalSection
+EndGlobal

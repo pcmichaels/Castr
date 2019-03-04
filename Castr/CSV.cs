@@ -1,0 +1,33 @@
+﻿using System;
+
+namespace CastDataAs
+{
+    public class CSV : ICastr
+    {
+        private string _csv;
+        private string _delimiter;
+        private string[] _fields;
+
+        public CSV(string csv, string delimiter)
+        {
+            _csv = csv;
+            _delimiter = delimiter;
+            _fields = csv.Split(delimiter.ToCharArray());
+        }
+        
+        public T CastAsStruct<T>()
+        {
+            var newObject = (object)Activator.CreateInstance<T>();
+            var properties = typeof(T).GetProperties();            
+            int fieldIdx = 0;
+
+            foreach(var prop in properties)
+            {
+                if (fieldIdx > _fields.Length) break;
+                prop.SetValue(newObject, _fields[fieldIdx++], null);
+            }
+
+            return (T)newObject;
+        }
+    }
+}
