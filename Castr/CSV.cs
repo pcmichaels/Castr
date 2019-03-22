@@ -15,6 +15,13 @@ namespace CastDataAs
             _fields = csv.Split(delimiter.ToCharArray());
         }
 
+        public CSV(string csv, string delimiter, bool includesHeaders)
+        {
+            _csv = csv;
+            _delimiter = delimiter;
+            _fields = csv.Split(delimiter.ToCharArray());
+        }
+
         public T CastAsClass<T>()
         {
             var newObject = Activator.CreateInstance<T>();

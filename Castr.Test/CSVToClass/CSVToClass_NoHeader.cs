@@ -2,7 +2,7 @@
 using System;
 using Xunit;
 
-namespace CastDataAs.Test
+namespace CastDataAs.Test.CSVToClass
 {
     public class CSVToClass_NoHeader
     {
