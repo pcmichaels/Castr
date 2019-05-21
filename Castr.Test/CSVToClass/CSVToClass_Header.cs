@@ -78,7 +78,7 @@ namespace CastDataAs.Test.CSVToClass
         {
             // Arrange
             string csvData = $"Property1,Property2,Property3{Environment.NewLine}this,is";
-            var csv = new CSV(csvData, ",");
+            var csv = new CSV(csvData, ",", true);
 
             // Act
             var newClass = csv.CastAsClass<SimpleTestClass>();
@@ -94,7 +94,7 @@ namespace CastDataAs.Test.CSVToClass
         {
             // Arrange
             string csvData = $"Property1,Property2{Environment.NewLine}this,is";
-            var csv = new CSV(csvData, ",");
+            var csv = new CSV(csvData, ",", true);
 
             // Act
             var newClass = csv.CastAsClass<SimpleTestClass>();

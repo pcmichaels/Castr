@@ -69,16 +69,27 @@ namespace CastDataAs
             return CastAsClassSingleInstance<T>(data);
         }
 
-        private static T CastAsClassSingleInstance<T>(string[] fields)
+        private T CastAsClassSingleInstance<T>(string[] fields)
         {
             var newObject = Activator.CreateInstance<T>();
             var properties = typeof(T).GetProperties();
             int fieldIdx = 0;
 
             foreach (var prop in properties)
-            {
+            {                
                 if (fieldIdx >= fields.Length) break;
+
+                if (_headers != null && _headers[fieldIdx] != prop.Name)
+                {
+                    throw new CastingException($"Field {prop.Name} does not match header {_headers[fieldIdx]}");
+                }
+
                 prop.SetValue(newObject, fields[fieldIdx++], null);
+            }
+
+            if (_headers != null && fieldIdx < _headers.Length)
+            {
+                throw new CastingException($"Expected {_headers.Length} fields but found {fieldIdx}");
             }
 
             return newObject;
