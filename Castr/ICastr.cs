@@ -6,5 +6,7 @@ namespace CastDataAs
 {
     public interface ICastr
     {
+        T CastAsClass<T>();
+        T CastAsStruct<T>();
     }
 }
