@@ -54,7 +54,7 @@ namespace CastDataAs.Test.CSVToClass
             }
 
             // Assert
-            _ = Assert.Throws<CastingException>(Act);
+            _ = Assert.Throws<CastingException>((Action)Act);
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace CastDataAs.Test.CSVToClass
             }
 
             // Assert
-            _ = Assert.Throws<CastingException>(Act);
+            _ = Assert.Throws<CastingException>((Action)Act);
         }
 
         [Fact]
