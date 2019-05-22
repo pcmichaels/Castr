@@ -11,7 +11,7 @@ namespace CastDataAs.Test.CSVToStruct
         {
             // Arrange
             string csvData = "this,is,data";
-            var csv = new CSV(csvData, ",");
+            var csv = new CSV(csvData, ",", false);
 
             // Act
             var newStruct = csv.CastAsStruct<SimpleTestStruct>();

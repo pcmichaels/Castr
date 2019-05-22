@@ -58,7 +58,7 @@ namespace CastDataAs
                 return splitResult.Count;
             }
 
-            return 0;
+            return _data.Count;
         }
 
         public T CastAsClass<T>()
@@ -104,11 +104,13 @@ namespace CastDataAs
 
         public T CastAsStruct<T>()
         {
-            EnsureFileIsSplit();
-
             int rowCount = EnsureFileIsSplit();
 
-            if (rowCount != 1)
+            if (rowCount == 0)
+            {
+                throw new InvalidSourceDataException("CastAsStruct expects data");
+            }
+            else if (rowCount > 1)
             {
                 throw new InvalidSourceDataException("CastAsStruct expects a single data row");
             }
