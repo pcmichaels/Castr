@@ -1,5 +1,6 @@
 ﻿using CastDataAs.Test.TestData;
 using Castr.Exceptions;
+using Castr.Options;
 using System;
 using Xunit;
 
@@ -40,11 +41,11 @@ namespace CastDataAs.Test.CSVToClass
         }
 
         [Fact]
-        public void BasicCsvToClass_TooManyHeadersForClass_Throws()
+        public void BasicCsvToClass_TooManyHeadersForClass_Strict_Throws()
         {
             // Arrange
             string csvData = $"Property1,Property2,Property3,Property4{Environment.NewLine}this,is,data,too,much,data";
-            var csv = new CSV(csvData, ",", true);
+            var csv = new CSV(csvData, new CsvOptions(true, true, true, ","));
 
             void Act()
             {
@@ -57,11 +58,11 @@ namespace CastDataAs.Test.CSVToClass
         }
 
         [Fact]
-        public void BasicCsvToClass_InvalidHeadersForClass_Throws()
+        public void BasicCsvToClass_InvalidHeadersForClass_Strict_Throws()
         {
             // Arrange
             string csvData = $"Property1,Property2,Aardvark{Environment.NewLine}this,is,data";
-            var csv = new CSV(csvData, ",", true);
+            var csv = new CSV(csvData, new CsvOptions(true, true, true, ","));
 
             void Act()
             {

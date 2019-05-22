@@ -1,4 +1,5 @@
 ﻿using Castr.Exceptions;
+using Castr.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,19 +9,23 @@ namespace CastDataAs
     public class CSV : ICastr, IDisposable
     {
         private string _csv;
-        private string _delimiter;
-        private readonly bool _includesHeaders;
         private string[] _headers = null;
         private List<string[]> _data = null;
         private string[] _newLineDelimiter = new [] { Environment.NewLine };
 
-        public CSV(string csv, string delimiter) : this(csv, delimiter, false) { }
+        private CsvOptions _csvOptions = new CsvOptions();
+
+        public CSV(string csv, string delimiter) 
+            : this(csv, new CsvOptions(delimiter: delimiter)) { }
 
         public CSV(string csv, string delimiter, bool includesHeaders)
+            :this(csv, new CsvOptions(includesHeaders: includesHeaders, delimiter: delimiter))
+        { }
+
+        public CSV(string csv, CsvOptions csvOptions)
         {
             _csv = csv;
-            _delimiter = delimiter;            
-            _includesHeaders = includesHeaders;
+            _csvOptions = csvOptions;
         }
 
         private List<string[]> SplitFile()
@@ -30,9 +35,9 @@ namespace CastDataAs
             string[] lines = _csv.Split(_newLineDelimiter, StringSplitOptions.RemoveEmptyEntries);
             foreach (string line in lines)
             {
-                string[] fields = line.Split(_delimiter.ToCharArray());
+                string[] fields = line.Split(_csvOptions.Delimiter.ToCharArray());
 
-                if (_includesHeaders && _headers == null)
+                if (_csvOptions.IncludesHeaders && _headers == null)
                 {
                     _headers = fields;
                 }
@@ -79,7 +84,8 @@ namespace CastDataAs
             {                
                 if (fieldIdx >= fields.Length) break;
 
-                if (_headers != null && _headers[fieldIdx] != prop.Name)
+                if (_csvOptions.StrictHeaderNameMatching && _headers != null 
+                    && _headers[fieldIdx] != prop.Name)
                 {
                     throw new CastingException($"Field {prop.Name} does not match header {_headers[fieldIdx]}");
                 }
@@ -87,7 +93,8 @@ namespace CastDataAs
                 prop.SetValue(newObject, fields[fieldIdx++], null);
             }
 
-            if (_headers != null && fieldIdx < _headers.Length)
+            if (_csvOptions.StrictHeaderCountMatching 
+                && _headers != null && fieldIdx < _headers.Length)
             {
                 throw new CastingException($"Expected {_headers.Length} fields but found {fieldIdx}");
             }
