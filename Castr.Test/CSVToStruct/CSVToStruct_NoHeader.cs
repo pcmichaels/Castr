@@ -2,7 +2,7 @@
 using System;
 using Xunit;
 
-namespace CastDataAs.Test.CSVToStruct
+namespace Castr.Test.CSVToStruct
 {
     public class CSVToStruct_NoHeader
     {
@@ -11,7 +11,7 @@ namespace CastDataAs.Test.CSVToStruct
         {
             // Arrange
             string csvData = "this,is,data";
-            var csv = new CSV(csvData, ",", false);
+            var csv = new CastrCSV(csvData, ",", false);
 
             // Act
             var newStruct = csv.CastAsStruct<SimpleTestStruct>();
@@ -27,7 +27,7 @@ namespace CastDataAs.Test.CSVToStruct
         {
             // Arrange
             string csvData = "this,is,data,too,much,data";
-            var csv = new CSV(csvData, ",");
+            var csv = new CastrCSV(csvData, ",");
 
             // Act
             var newStruct = csv.CastAsStruct<SimpleTestStruct>();
@@ -43,7 +43,7 @@ namespace CastDataAs.Test.CSVToStruct
         {
             // Arrange
             string csvData = "this,is";
-            var csv = new CSV(csvData, ",");
+            var csv = new CastrCSV(csvData, ",");
 
             // Act
             var newStruct = csv.CastAsStruct<SimpleTestStruct>();

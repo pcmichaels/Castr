@@ -1,8 +1,7 @@
-﻿using CastDataAs.Test.TestData;
-using System;
+﻿using Castr.Test.TestData;
 using Xunit;
 
-namespace CastDataAs.Test.CSVToClass
+namespace Castr.Test.CSVToClass
 {
     public class CSVToClass_NoHeader
     {
@@ -11,7 +10,7 @@ namespace CastDataAs.Test.CSVToClass
         {
             // Arrange
             string csvData = "this,is,data";
-            var csv = new CSV(csvData, ",");
+            var csv = new CastrCSV(csvData, ",");
 
             // Act
             var newClass = csv.CastAsClass<SimpleTestClass>();
@@ -27,7 +26,7 @@ namespace CastDataAs.Test.CSVToClass
         {
             // Arrange
             string csvData = "this,is,data,too,much,data";
-            var csv = new CSV(csvData, ",");
+            var csv = new CastrCSV(csvData, ",");
 
             // Act
             var newClass = csv.CastAsClass<SimpleTestClass>();
@@ -43,7 +42,7 @@ namespace CastDataAs.Test.CSVToClass
         {
             // Arrange
             string csvData = "this,is";
-            var csv = new CSV(csvData, ",");
+            var csv = new CastrCSV(csvData, ",");
 
             // Act
             var newClass = csv.CastAsClass<SimpleTestClass>();

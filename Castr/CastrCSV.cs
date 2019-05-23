@@ -4,9 +4,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CastDataAs
+namespace Castr
 {
-    public class CSV : ICastr, IDisposable
+    public class CastrCSV : ICastr, IDisposable
     {
         private string _csv;
         private string[] _headers = null;
@@ -15,14 +15,14 @@ namespace CastDataAs
 
         private CsvOptions _csvOptions = new CsvOptions();
 
-        public CSV(string csv, string delimiter) 
+        public CastrCSV(string csv, string delimiter) 
             : this(csv, new CsvOptions(delimiter: delimiter)) { }
 
-        public CSV(string csv, string delimiter, bool includesHeaders)
+        public CastrCSV(string csv, string delimiter, bool includesHeaders)
             :this(csv, new CsvOptions(includesHeaders: includesHeaders, delimiter: delimiter))
         { }
 
-        public CSV(string csv, CsvOptions csvOptions)
+        public CastrCSV(string csv, CsvOptions csvOptions)
         {
             _csv = csv;
             _csvOptions = csvOptions;

@@ -1,10 +1,10 @@
-﻿using CastDataAs.Test.TestData;
+﻿using Castr.Test.TestData;
 using Castr.Exceptions;
 using Castr.Options;
 using System;
 using Xunit;
 
-namespace CastDataAs.Test.CSVToClass
+namespace Castr.Test.CSVToClass
 {
     public class CSVToClass_Header
     {
@@ -13,7 +13,7 @@ namespace CastDataAs.Test.CSVToClass
         {
             // Arrange
             string csvData = $"Property1,Property2,Property3{Environment.NewLine}this,is,data";
-            var csv = new CSV(csvData, ",", true);
+            var csv = new CastrCSV(csvData, ",", true);
 
             // Act
             var newClass = csv.CastAsClass<SimpleTestClass>();
@@ -29,7 +29,7 @@ namespace CastDataAs.Test.CSVToClass
         {
             // Arrange
             string csvData = $"Property1,Property2,Property3{Environment.NewLine}this,is,data,too,much,data";
-            var csv = new CSV(csvData, ",", true);
+            var csv = new CastrCSV(csvData, ",", true);
 
             // Act
             var newClass = csv.CastAsClass<SimpleTestClass>();
@@ -45,7 +45,7 @@ namespace CastDataAs.Test.CSVToClass
         {
             // Arrange
             string csvData = $"Property1,Property2,Property3,Property4{Environment.NewLine}this,is,data,too,much,data";
-            var csv = new CSV(csvData, new CsvOptions(true, true, true, ","));
+            var csv = new CastrCSV(csvData, new CsvOptions(true, true, true, ","));
 
             void Act()
             {
@@ -62,7 +62,7 @@ namespace CastDataAs.Test.CSVToClass
         {
             // Arrange
             string csvData = $"Property1,Property2,Aardvark{Environment.NewLine}this,is,data";
-            var csv = new CSV(csvData, new CsvOptions(true, true, true, ","));
+            var csv = new CastrCSV(csvData, new CsvOptions(true, true, true, ","));
 
             void Act()
             {
@@ -79,7 +79,7 @@ namespace CastDataAs.Test.CSVToClass
         {
             // Arrange
             string csvData = $"Property1,Property2,Property3{Environment.NewLine}this,is";
-            var csv = new CSV(csvData, ",", true);
+            var csv = new CastrCSV(csvData, ",", true);
 
             // Act
             var newClass = csv.CastAsClass<SimpleTestClass>();
@@ -95,7 +95,7 @@ namespace CastDataAs.Test.CSVToClass
         {
             // Arrange
             string csvData = $"Property1,Property2{Environment.NewLine}this,is";
-            var csv = new CSV(csvData, ",", true);
+            var csv = new CastrCSV(csvData, ",", true);
 
             // Act
             var newClass = csv.CastAsClass<SimpleTestClass>();
