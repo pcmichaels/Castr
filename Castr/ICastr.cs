@@ -6,7 +6,7 @@ namespace Castr
 {
     public interface ICastr
     {
-        T CastAsClass<T>();
-        T CastAsStruct<T>();
+        T CastAsClass<T>() where T : class;
+        T CastAsStruct<T>() where T : struct;
     }
 }

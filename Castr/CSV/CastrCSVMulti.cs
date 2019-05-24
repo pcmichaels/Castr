@@ -20,45 +20,31 @@ namespace Castr.CSV
         { }
 
 
-        public T CastAsClass<T>()
+        public IEnumerable<T> CastAsClassMulti<T>() where T : class
         {
             int rowCount = EnsureFileIsSplit();
+            var classList = new List<T>();
+            bool headerRow = _csvOptions.IncludesHeaders;
 
-            if (rowCount != 1)
+            foreach (var data in _data)
             {
-                throw new InvalidSourceDataException("CastAsClass expects a single data row");
+                classList.Add(CastAsStructSingleInstance<T>(data));
             }
 
-            var data = _data.Single();
-            return CastAsClassSingleInstance<T>(data);
+            return classList;
         }
 
-        public IEnumerable<T> CastAsClassMulti<T>()
-        {
-            throw new NotImplementedException();
-        }
-
-        public T CastAsStruct<T>()
+        public IEnumerable<T> CastAsStructMulti<T>() where T : struct
         {
             int rowCount = EnsureFileIsSplit();
+            var classList = new List<T>();
 
-            if (rowCount == 0)
+            foreach (var data in _data)
             {
-                throw new InvalidSourceDataException("CastAsStruct expects data");
-            }
-            else if (rowCount > 1)
-            {
-                throw new InvalidSourceDataException("CastAsStruct expects a single data row");
+                classList.Add(CastAsStructSingleInstance<T>(data));
             }
 
-            var data = _data.Single();
-
-            return CastAsStructSingleInstance<T>(data);
-        }
-
-        public IEnumerable<T> CastAsStructMulti<T>()
-        {
-            throw new NotImplementedException();
+            return classList;
         }
 
         public void Dispose()

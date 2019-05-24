@@ -19,7 +19,7 @@ namespace Castr
             _classOptions = classOptions;
         }
 
-        public TNewClass CastAsClass<TNewClass>()
+        public TNewClass CastAsClass<TNewClass>() where TNewClass : class
         {
             if (_classOptions.IsStrict
                 && !ClassHelper.AreClassesRelated<TExistingClass, TNewClass>())
@@ -44,7 +44,7 @@ namespace Castr
             return newObject;
         }
 
-        public T CastAsStruct<T>()
+        public T CastAsStruct<T>() where T : struct
         {
             throw new NotImplementedException();
         }

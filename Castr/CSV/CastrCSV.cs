@@ -20,7 +20,7 @@ namespace Castr.CSV
             : base (csv, csvOptions)
         { }
 
-        public T CastAsClass<T>()
+        public T CastAsClass<T>() where T : class
         {
             int rowCount = EnsureFileIsSplit();
 
@@ -33,7 +33,7 @@ namespace Castr.CSV
             return CastAsClassSingleInstance<T>(data);
         }
 
-        public T CastAsStruct<T>()
+        public T CastAsStruct<T>() where T : struct
         {
             int rowCount = EnsureFileIsSplit();
 

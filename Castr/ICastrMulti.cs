@@ -6,7 +6,7 @@ namespace Castr
 {
     public interface ICastrMulti
     {
-        IEnumerable<T> CastAsClassMulti<T>();
-        IEnumerable<T> CastAsStructMulti<T>();
+        IEnumerable<T> CastAsClassMulti<T>() where T: class;
+        IEnumerable<T> CastAsStructMulti<T>() where T: struct;
     }
 }
