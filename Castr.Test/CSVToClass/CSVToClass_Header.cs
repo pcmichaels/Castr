@@ -3,6 +3,7 @@ using Castr.Exceptions;
 using Castr.Options;
 using System;
 using Xunit;
+using Castr.CSV;
 
 namespace Castr.Test.CSVToClass
 {

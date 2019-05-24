@@ -1,4 +1,5 @@
-﻿using Castr.Test.TestData;
+﻿using Castr.CSV;
+using Castr.Test.TestData;
 using Xunit;
 
 namespace Castr.Test.CSVToClass

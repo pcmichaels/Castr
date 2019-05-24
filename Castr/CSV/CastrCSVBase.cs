@@ -2,33 +2,27 @@
 using Castr.Options;
 using System;
 using System.Collections.Generic;
-using System.Linq;
+using System.Text;
 
-namespace Castr
+namespace Castr.CSV
 {
-    public class CastrCSV : ICastr, IDisposable
+    public abstract class CastrCSVBase
     {
-        private string _csv;
-        private string[] _headers = null;
-        private List<string[]> _data = null;
-        private string[] _newLineDelimiter = new [] { Environment.NewLine };
+        protected string _csv;
+        protected string[] _headers = null;
+        protected List<string[]> _data = null;
+        protected string[] _newLineDelimiter = new[] { Environment.NewLine };
+        
+        protected CsvOptions _csvOptions = new CsvOptions();
 
-        private CsvOptions _csvOptions = new CsvOptions();
-
-        public CastrCSV(string csv, string delimiter) 
-            : this(csv, new CsvOptions(delimiter: delimiter)) { }
-
-        public CastrCSV(string csv, string delimiter, bool includesHeaders)
-            :this(csv, new CsvOptions(includesHeaders: includesHeaders, delimiter: delimiter))
-        { }
-
-        public CastrCSV(string csv, CsvOptions csvOptions)
+        public CastrCSVBase(string csv, CsvOptions csvOptions)
         {
             _csv = csv;
             _csvOptions = csvOptions;
         }
 
-        private List<string[]> SplitFile()
+
+        protected List<string[]> SplitFile()
         {
             _data = new List<string[]>();
 
@@ -50,7 +44,7 @@ namespace Castr
             return _data;
         }
 
-        private int EnsureFileIsSplit()
+        protected int EnsureFileIsSplit()
         {
             if (_data == null)
             {
@@ -61,30 +55,17 @@ namespace Castr
             return _data.Count;
         }
 
-        public T CastAsClass<T>()
-        {
-            int rowCount = EnsureFileIsSplit();
-
-            if (rowCount != 1)
-            {
-                throw new InvalidSourceDataException("CastAsClass expects a single data row");
-            }
-
-            var data = _data.Single();
-            return CastAsClassSingleInstance<T>(data);
-        }
-
-        private T CastAsClassSingleInstance<T>(string[] fields)
+        protected T CastAsClassSingleInstance<T>(string[] fields)
         {
             var newObject = Activator.CreateInstance<T>();
             var properties = typeof(T).GetProperties();
             int fieldIdx = 0;
 
             foreach (var prop in properties)
-            {                
+            {
                 if (fieldIdx >= fields.Length) break;
 
-                if (_csvOptions.StrictHeaderNameMatching && _headers != null 
+                if (_csvOptions.StrictHeaderNameMatching && _headers != null
                     && _headers[fieldIdx] != prop.Name)
                 {
                     throw new CastingException($"Field {prop.Name} does not match header {_headers[fieldIdx]}");
@@ -93,7 +74,7 @@ namespace Castr
                 prop.SetValue(newObject, fields[fieldIdx++], null);
             }
 
-            if (_csvOptions.StrictHeaderCountMatching 
+            if (_csvOptions.StrictHeaderCountMatching
                 && _headers != null && fieldIdx < _headers.Length)
             {
                 throw new CastingException($"Expected {_headers.Length} fields but found {fieldIdx}");
@@ -102,25 +83,7 @@ namespace Castr
             return newObject;
         }
 
-        public T CastAsStruct<T>()
-        {
-            int rowCount = EnsureFileIsSplit();
-
-            if (rowCount == 0)
-            {
-                throw new InvalidSourceDataException("CastAsStruct expects data");
-            }
-            else if (rowCount > 1)
-            {
-                throw new InvalidSourceDataException("CastAsStruct expects a single data row");
-            }
-
-            var data = _data.Single();
-
-            return CastAsStructSingleInstance<T>(data);
-        }
-
-        private T CastAsStructSingleInstance<T>(string[] fields)
+        protected T CastAsStructSingleInstance<T>(string[] fields)
         {
             // Have to box the reference first
             var newObject = (object)Activator.CreateInstance<T>();
@@ -136,11 +99,5 @@ namespace Castr
             // Unbox and return
             return (T)newObject;
         }
-
-        public void Dispose()
-        {
-            _data = null;
-        }
-
     }
 }
