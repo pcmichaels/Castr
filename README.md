@@ -31,4 +31,14 @@ var csv = new CastrCSV(csvData, ",", true);
 var newClass = csv.CastAsClass<SimpleTestClass>();
 ```
 
+### Convert a multi line CSV to a class list)
+
+```csharp
+string csvData = File.ReadAllText(@"c:\txt.csv");
+var csv = new CastrCSVMulti(csvData, ",", true);
+
+// Act
+var newClassEnumerable = csv.CastAsClassMulti<SimpleTestClass>();
+
+```
 
