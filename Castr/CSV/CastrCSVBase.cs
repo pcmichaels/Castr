@@ -111,7 +111,9 @@ namespace Castr.CSV
             // Have to box the reference first
             var newObject = (object)Activator.CreateInstance<T>();
             var properties = typeof(T).GetProperties();
-            
+
+            System.Diagnostics.Trace.WriteLine("test");
+
             foreach (var prop in properties)
             {                
                 for (int i = 0; i < headers.Length; i++)
