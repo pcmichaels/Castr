@@ -25,6 +25,7 @@ namespace Castr.Options
         public bool IncludesHeaders { get; set; }
         public bool StrictHeaderCountMatching { get; set; }
         public bool StrictHeaderNameMatching { get; set; }
+        public bool MatchByHeader { get; set; }
         public string Delimiter { get; set; }
     }
 }

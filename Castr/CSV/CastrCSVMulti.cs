@@ -23,12 +23,13 @@ namespace Castr.CSV
         public IEnumerable<T> CastAsClassMulti<T>() where T : class
         {
             int rowCount = EnsureFileIsSplit();
-            var classList = new List<T>();
-            bool headerRow = _csvOptions.IncludesHeaders;
+            var classList = new List<T>();            
 
             foreach (var data in _data)
             {
-                classList.Add(CastAsStructSingleInstance<T>(data));
+                classList.Add(_csvOptions.MatchByHeader 
+                    ? CastAsStructSingleInstanceByHeaders<T>(data, _headers)
+                    : CastAsStructSingleInstance<T>(data));
             }
 
             return classList;
@@ -41,7 +42,9 @@ namespace Castr.CSV
 
             foreach (var data in _data)
             {
-                classList.Add(CastAsStructSingleInstance<T>(data));
+                classList.Add(_csvOptions.MatchByHeader
+                    ? CastAsStructSingleInstanceByHeaders<T>(data, _headers)
+                    : CastAsStructSingleInstance<T>(data));
             }
 
             return classList;

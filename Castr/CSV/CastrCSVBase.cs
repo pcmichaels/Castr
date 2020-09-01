@@ -3,6 +3,7 @@ using Castr.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace Castr.CSV
 {
@@ -99,5 +100,37 @@ namespace Castr.CSV
             // Unbox and return
             return (T)newObject;
         }
+
+        protected T CastAsStructSingleInstanceByHeaders<T>(string[] fields, string[] headers)
+        {
+            if (fields.Length != headers.Length)
+            {
+                throw new ArgumentException($"Field count ({fields.Length}) must match header count ({headers.Length})");
+            }
+
+            // Have to box the reference first
+            var newObject = (object)Activator.CreateInstance<T>();
+            var properties = typeof(T).GetProperties();
+            
+            foreach (var prop in properties)
+            {                
+                for (int i = 0; i < headers.Length; i++)
+                {
+                    // Strip spaces from the names before matching
+                    string headerName = Regex.Replace(headers[i], @"\s+", "");
+                    string propName = Regex.Replace(prop.Name, @"\s+", "");
+
+                    if (string.Compare(headerName, propName, true) == 0)
+                    {
+                        prop.SetValue(newObject, fields[i], null);
+                        break;
+                    }
+                }                
+            }
+
+            // Unbox and return
+            return (T)newObject;
+        }
+
     }
 }
