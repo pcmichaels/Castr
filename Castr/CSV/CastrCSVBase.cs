@@ -114,19 +114,13 @@ namespace Castr.CSV
 
             foreach (var prop in properties)
             {
-                Console.WriteLine($"pcm-processing prop {prop.Name}");
-
                 for (int i = 0; i < headers.Length; i++)
-                {
-                    Console.WriteLine($"pcm-processing hdr {headers[i]}");
-
+                {                    
                     // Strip spaces from the names before matching
                     string headerName = Regex.Replace(headers[i], @"\s+", "");
-                    string propName = Regex.Replace(prop.Name, @"\s+", "");
+                    string propName = Regex.Replace(prop.Name, @"\s+", "");                    
 
-                    Console.WriteLine($"pcm-headerName {headerName}, propName {propName}");
-
-                    if (string.Compare(headerName, propName, true) == 0)
+                    if (headerName.Equals(propName, StringComparison.OrdinalIgnoreCase))                                        
                     {
                         Console.WriteLine($"pcm-set {headerName} to {fields[i]}");
 
