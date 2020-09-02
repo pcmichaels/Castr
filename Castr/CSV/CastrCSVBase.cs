@@ -110,22 +110,26 @@ namespace Castr.CSV
 
             // Have to box the reference first
             var newObject = (object)Activator.CreateInstance<T>();
-            var properties = typeof(T).GetProperties();
-
-            Console.WriteLine("pcm-test-console");
-            System.Diagnostics.Debug.WriteLine("pcm-test-debug");
-            System.Diagnostics.Trace.WriteLine("pcm-test-trace");
+            var properties = typeof(T).GetProperties();            
 
             foreach (var prop in properties)
             {
+                Console.WriteLine($"pcm-processing prop {prop.Name}");
+
                 for (int i = 0; i < headers.Length; i++)
                 {
+                    Console.WriteLine($"pcm-processing hdr {headers[i]}");
+
                     // Strip spaces from the names before matching
                     string headerName = Regex.Replace(headers[i], @"\s+", "");
                     string propName = Regex.Replace(prop.Name, @"\s+", "");
 
+                    Console.WriteLine($"pcm-headerName {headerName}, propName {propName}");
+
                     if (string.Compare(headerName, propName, true) == 0)
                     {
+                        Console.WriteLine($"pcm-set {headerName} to {fields[i]}");
+
                         prop.SetValue(newObject, fields[i], null);
                         break;
                     }
