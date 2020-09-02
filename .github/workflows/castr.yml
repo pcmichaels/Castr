@@ -26,5 +26,5 @@ jobs:
     - name: Publish NuGet
       uses: brandedoutcast/publish-nuget@v2.5.5
       with:        
-        PROJECT_FILE_PATH: Castr/Castr/Castr.csproj
+        PROJECT_FILE_PATH: ./Castr/Castr.csproj
         NUGET_KEY: ${{secrets.NUGET_API_KEY}}
