@@ -112,10 +112,12 @@ namespace Castr.CSV
             var newObject = (object)Activator.CreateInstance<T>();
             var properties = typeof(T).GetProperties();
 
-            Console.WriteLine("pcm-test");
+            Console.WriteLine("pcm-test-console");
+            System.Diagnostics.Debug.WriteLine("pcm-test-debug");
+            System.Diagnostics.Trace.WriteLine("pcm-test-trace");
 
             foreach (var prop in properties)
-            {                
+            {
                 for (int i = 0; i < headers.Length; i++)
                 {
                     // Strip spaces from the names before matching
