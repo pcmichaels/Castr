@@ -122,8 +122,6 @@ namespace Castr.CSV
 
                     if (headerName.Equals(propName, StringComparison.OrdinalIgnoreCase))                                        
                     {
-                        Console.WriteLine($"pcm-set {headerName} to {fields[i]}");
-
                         prop.SetValue(newObject, fields[i], null);
                         break;
                     }
