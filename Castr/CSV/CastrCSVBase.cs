@@ -112,7 +112,7 @@ namespace Castr.CSV
             var newObject = (object)Activator.CreateInstance<T>();
             var properties = typeof(T).GetProperties();
 
-            System.Diagnostics.Trace.WriteLine("test");
+            Console.WriteLine("pcm-test");
 
             foreach (var prop in properties)
             {                
