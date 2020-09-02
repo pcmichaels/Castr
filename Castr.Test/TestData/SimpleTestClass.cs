@@ -10,5 +10,9 @@ namespace Castr.Test.TestData
         public string Property2 { get; set; }
         public string Property3 { get; set; }
         public string PropertyThree { get; set; }
+        public decimal NumberPropertyOne { get; set; }
+        public int NumberPropertyTwo { get; set; }
+        public DateTime DateProperty { get; set; }
+        public DateTime DateProperty2 { get; set; }
     }
 }

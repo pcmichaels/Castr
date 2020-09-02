@@ -72,7 +72,8 @@ namespace Castr.CSV
                     throw new CastingException($"Field {prop.Name} does not match header {_headers[fieldIdx]}");
                 }
 
-                prop.SetValue(newObject, fields[fieldIdx++], null);
+                var newValue = Convert.ChangeType(fields[fieldIdx++], prop.PropertyType);
+                prop.SetValue(newObject, newValue, null);
             }
 
             if (_csvOptions.StrictHeaderCountMatching

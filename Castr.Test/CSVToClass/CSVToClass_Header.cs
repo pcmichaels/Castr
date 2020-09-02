@@ -26,6 +26,38 @@ namespace Castr.Test.CSVToClass
         }
 
         [Fact]
+        public void BasicCsvToClass_Numbers_Converts()
+        {
+            // Arrange
+            string csvData = $"Property1,Property2,Property3,PropertyThree,NumberPropertyOne,NumberPropertyTwo,DateProperty,DateProperty2" +
+                $"{Environment.NewLine}x,y,x,x3,1.032,1,1/3/2020,2020-03-02";
+            var csv = new CastrCSV(csvData, ",", true);
+
+            // Act
+            var newClass = csv.CastAsClass<SimpleTestClass>();
+
+            // Assert
+            Assert.Equal(1.032m, newClass.NumberPropertyOne);
+            Assert.Equal(1, newClass.NumberPropertyTwo);            
+        }
+
+        [Fact]
+        public void BasicCsvToClass_Dates_Converts()
+        {
+            // Arrange
+            string csvData = $"Property1,Property2,Property3,PropertyThree,NumberPropertyOne,NumberPropertyTwo,DateProperty,DateProperty2" +
+                $"{Environment.NewLine}x,y,x,x3,1,2,1/3/2020,2020-03-02";
+            var csv = new CastrCSV(csvData, ",", true);
+
+            // Act
+            var newClass = csv.CastAsClass<SimpleTestClass>();
+
+            // Assert
+            Assert.Equal(new DateTime(2020, 03, 01), newClass.DateProperty);
+            Assert.Equal(new DateTime(2020, 03, 02), newClass.DateProperty2);
+        }
+
+        [Fact]
         public void BasicCsvToClass_TooManyFields_Converts()
         {
             // Arrange
@@ -33,7 +65,7 @@ namespace Castr.Test.CSVToClass
             var csv = new CastrCSV(csvData, ",", true);
 
             // Act
-            var newClass = csv.CastAsClass<SimpleTestClass>();
+            var newClass = csv.CastAsClass<SimpleTestClass2>();
 
             // Assert
             Assert.Equal("this", newClass.Property1);
