@@ -2,6 +2,7 @@
 using Castr.Options;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Text;
 using System.Text.RegularExpressions;
 
@@ -12,7 +13,7 @@ namespace Castr.CSV
         protected string _csv;
         protected string[] _headers = null;
         protected List<string[]> _data = null;
-        protected string[] _newLineDelimiter = new[] { Environment.NewLine };
+        protected string[] _newLineDelimiter = new[] { Environment.NewLine };        
         
         protected CsvOptions _csvOptions = new CsvOptions();
 
@@ -72,8 +73,7 @@ namespace Castr.CSV
                     throw new CastingException($"Field {prop.Name} does not match header {_headers[fieldIdx]}");
                 }
 
-                var newValue = Convert.ChangeType(fields[fieldIdx++], prop.PropertyType);
-                prop.SetValue(newObject, newValue, null);
+                fieldIdx = AssignValue(fields, newObject, fieldIdx, prop);
             }
 
             if (_csvOptions.StrictHeaderCountMatching
@@ -95,11 +95,27 @@ namespace Castr.CSV
             foreach (var prop in properties)
             {
                 if (fieldIdx >= fields.Length) break;
-                prop.SetValue(newObject, fields[fieldIdx++], null);
+                fieldIdx = AssignValue(fields, newObject, fieldIdx, prop);
             }
 
             // Unbox and return
             return (T)newObject;
+        }
+
+        private int AssignValue(string[] fields, object newObject, int fieldIdx, System.Reflection.PropertyInfo prop)
+        {
+            if (typeof(DateTime).IsAssignableFrom(prop.PropertyType))
+            {
+                DateTime newValue = DateTime.Parse(fields[fieldIdx++], _csvOptions.Culture);
+                prop.SetValue(newObject, newValue, null);
+            }
+            else
+            {
+                var newValue = Convert.ChangeType(fields[fieldIdx++], prop.PropertyType);
+                prop.SetValue(newObject, newValue, null);
+            }
+
+            return fieldIdx;
         }
 
         protected T CastAsStructSingleInstanceByHeaders<T>(string[] fields, string[] headers)
@@ -123,7 +139,7 @@ namespace Castr.CSV
 
                     if (headerName.Equals(propName, StringComparison.OrdinalIgnoreCase))                                        
                     {
-                        prop.SetValue(newObject, fields[i], null);
+                        AssignValue(fields, newObject, i, prop);                        
                         break;
                     }
                 }                

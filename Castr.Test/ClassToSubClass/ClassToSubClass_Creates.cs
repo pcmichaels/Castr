@@ -16,9 +16,9 @@ namespace Castr.Test.ClassToSubClass
         public void ConvertClassToSubClass_Converts(bool isStrict)
         {
             // Arrange
-            var parentClass = new SimpleTestClass();
+            var parentClass = new SimpleTestClassMultiType();
             parentClass.Property1 = "test";
-            var castrClass = new CastrClass<SimpleTestClass>(
+            var castrClass = new CastrClass<SimpleTestClassMultiType>(
                 parentClass, new Options.ClassOptions()
                 {
                     IsStrict = isStrict
@@ -36,9 +36,9 @@ namespace Castr.Test.ClassToSubClass
         public void ConvertClassToOtherClass_Strict_Throws()
         {
             // Arrange
-            var parentClass = new SimpleTestClass2();
+            var parentClass = new SimpleTestClass();
             parentClass.Property1 = "test";
-            var castrClass = new CastrClass<SimpleTestClass2>(
+            var castrClass = new CastrClass<SimpleTestClass>(
                 parentClass, new ClassOptions()
                 {
                     IsStrict = true
@@ -58,9 +58,9 @@ namespace Castr.Test.ClassToSubClass
         public void ConvertClassToOtherClass_NotStrict_Converts()
         {
             // Arrange
-            var parentClass = new SimpleTestClass2();
+            var parentClass = new SimpleTestClass();
             parentClass.Property1 = "test";
-            var castrClass = new CastrClass<SimpleTestClass2>(
+            var castrClass = new CastrClass<SimpleTestClass>(
                 parentClass, new ClassOptions()
                 {
                     IsStrict = false

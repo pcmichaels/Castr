@@ -6,6 +6,6 @@ namespace Castr.Test.TestData
 {
     public class ClassContainsListOfClasses
     {
-        public List<SimpleTestClass> SimpleTestClasses { get; set; }
+        public List<SimpleTestClassMultiType> SimpleTestClasses { get; set; }
     }
 }

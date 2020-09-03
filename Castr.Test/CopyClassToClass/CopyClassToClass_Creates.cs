@@ -14,9 +14,9 @@ namespace Castr.Test.CopyClassToClass
         {
             // Arrange
             var sourceClass = new ClassContainsListOfClasses();
-            sourceClass.SimpleTestClasses = new List<SimpleTestClass>()
+            sourceClass.SimpleTestClasses = new List<SimpleTestClassMultiType>()
             {
-                new SimpleTestClass() {Property1 = "test"}
+                new SimpleTestClassMultiType() {Property1 = "test"}
             };
 
             var castrClass = new CastrClass<ClassContainsListOfClasses>(
@@ -34,7 +34,7 @@ namespace Castr.Test.CopyClassToClass
         {
             // Arrange
             var sourceClass = new ClassContainsListOfClasses();
-            sourceClass.SimpleTestClasses = new List<SimpleTestClass>();
+            sourceClass.SimpleTestClasses = new List<SimpleTestClassMultiType>();
 
             var castrClass = new CastrClass<ClassContainsListOfClasses>(
                 sourceClass, new Options.ClassOptions() { });
