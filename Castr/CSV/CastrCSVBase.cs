@@ -104,18 +104,43 @@ namespace Castr.CSV
 
         private int AssignValue(string[] fields, object newObject, int fieldIdx, System.Reflection.PropertyInfo prop)
         {
+            string value = fields[fieldIdx];
             if (typeof(DateTime).IsAssignableFrom(prop.PropertyType))
             {
-                DateTime newValue = DateTime.Parse(fields[fieldIdx++], _csvOptions.Culture);
-                prop.SetValue(newObject, newValue, null);
+                DateTime newValue;
+                if (DateTime.TryParse(
+                    value, _csvOptions.Culture, DateTimeStyles.None, out newValue))
+                {
+                    prop.SetValue(newObject, newValue, null);
+                }
+                else
+                {
+                    if (value.Length == 8)
+                    {
+                        int year = int.Parse(value.Substring(0, 4));
+                        int month = int.Parse(value.Substring(4, 2));
+                        int day = int.Parse(value.Substring(6, 2));
+                        newValue = new DateTime(year, month, day);
+                    }
+                    else if (value.Length == 6)
+                    {
+                        // ToDo: move this into an injected dependency
+                        int year = int.Parse($"{DateTime.Now.Year.ToString().Substring(0,2)}{value.Substring(0, 2)}");
+                        int month = int.Parse(value.Substring(2, 2));
+                        int day = int.Parse(value.Substring(4, 2));
+                        newValue = new DateTime(year, month, day);
+                    }
+
+                    prop.SetValue(newObject, newValue, null);
+                }
             }
             else
             {
-                var newValue = Convert.ChangeType(fields[fieldIdx++], prop.PropertyType);
+                var newValue = Convert.ChangeType(value, prop.PropertyType);
                 prop.SetValue(newObject, newValue, null);
-            }
+            }            
 
-            return fieldIdx;
+            return ++fieldIdx;
         }
 
         protected T CastAsStructSingleInstanceByHeaders<T>(string[] fields, string[] headers)

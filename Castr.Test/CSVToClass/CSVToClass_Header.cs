@@ -41,12 +41,19 @@ namespace Castr.Test.CSVToClass
             Assert.Equal(1, newClass.NumberPropertyTwo);            
         }
 
-        [Fact]
-        public void BasicCsvToClass_Dates_Converts()
+        [Theory]
+        [InlineData("1/3/2020", 2020, 03, 01)]
+        [InlineData("2-3-2020", 2020, 03, 02)]
+        [InlineData("2.4.2020", 2020, 04, 02)]
+        [InlineData("20190103", 2019, 01, 03)]
+        [InlineData("201203", 2020, 12, 03)]
+        [InlineData("2019-01-04", 2019, 01, 04)]
+        public void BasicCsvToClass_Dates_Converts(string date1, 
+            int expectedYear, int expectedMonth, int expectedDay)
         {
             // Arrange
             string csvData = $"Property1,Property2,Property3,PropertyThree,NumberPropertyOne,NumberPropertyTwo,DateProperty,DateProperty2" +
-                $"{Environment.NewLine}x,y,x,x3,1,2,1/3/2020,2020-03-02";
+                $"{Environment.NewLine}x,y,x,x3,1,2,{date1}";
             var csv = new CastrCSV(csvData, new CsvOptions()
             {
                 Delimiter = ",",
@@ -58,8 +65,7 @@ namespace Castr.Test.CSVToClass
             var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
 
             // Assert
-            Assert.Equal(new DateTime(2020, 03, 01), newClass.DateProperty);
-            Assert.Equal(new DateTime(2020, 03, 02), newClass.DateProperty2);
+            Assert.Equal(new DateTime(expectedYear, expectedMonth, expectedDay), newClass.DateProperty);            
         }
 
         [Fact]
