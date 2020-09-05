@@ -68,6 +68,34 @@ namespace Castr.Test.CSVToClass
             Assert.Equal(new DateTime(expectedYear, expectedMonth, expectedDay), newClass.DateProperty);            
         }
 
+        [Theory]
+        [InlineData("true", true)]
+        [InlineData("True", true)]
+        [InlineData("1", true)]
+        [InlineData("", false)]
+        [InlineData("''", false)]
+        [InlineData("false", false)]
+        [InlineData("False", false)]
+        [InlineData("0", false)]
+        public void BasicCsvToClass_Boolean_Converts(string boolStr, bool expectedBool)
+        {
+            // Arrange
+            string csvData = $"Property1,Property2,Property3,PropertyThree,NumberPropertyOne,NumberPropertyTwo,DateProperty,DateProperty2,BoolProperty" +
+                $"{Environment.NewLine}x,y,x,x3,1,2,1/2/2019,5/1/2020,{boolStr}";
+            var csv = new CastrCSV(csvData, new CsvOptions()
+            {
+                Delimiter = ",",
+                IncludesHeaders = true,
+                Culture = new System.Globalization.CultureInfo("en-GB")
+            });
+
+            // Act
+            var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
+
+            // Assert
+            Assert.Equal(expectedBool, newClass.BoolProperty);
+        }
+
         [Fact]
         public void BasicCsvToClass_TooManyFields_Converts()
         {

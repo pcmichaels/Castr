@@ -14,5 +14,6 @@ namespace Castr.Test.TestData
         public int NumberPropertyTwo { get; set; }
         public DateTime DateProperty { get; set; }
         public DateTime DateProperty2 { get; set; }
+        public bool BoolProperty { get; set; }
     }
 }
