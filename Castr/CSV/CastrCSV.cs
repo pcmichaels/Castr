@@ -55,6 +55,5 @@ namespace Castr.CSV
         {
             _data = null;
         }
-
     }
 }

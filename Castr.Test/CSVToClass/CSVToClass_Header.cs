@@ -26,6 +26,29 @@ namespace Castr.Test.CSVToClass
         }
 
         [Fact]
+        public void BasicCsvToClass_StrictHeaderAndIncludesHeaders_Throws()
+        {
+            void RunTest()
+            {
+                // Arrange
+                string csvData = $"Property2,Property1,Property3{Environment.NewLine}this,is,data";
+                var csv = new CastrCSV(csvData, new CsvOptions()
+                {
+                    IncludesHeaders = true,
+                    StrictHeaderNameMatching = true,
+                    Delimiter = ",",
+                    MatchByHeader = true
+                });
+
+                // Act
+                var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
+            }
+
+            // Assert
+            Assert.Throws<CastingException>(RunTest);
+        }
+
+        [Fact]
         public void BasicCsvToClass_Numbers_Converts()
         {
             // Arrange
