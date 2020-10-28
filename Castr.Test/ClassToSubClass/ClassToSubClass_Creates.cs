@@ -16,9 +16,9 @@ namespace Castr.Test.ClassToSubClass
         public void ConvertClassToSubClass_Converts(bool isStrict)
         {
             // Arrange
-            var parentClass = new SimpleTestClassMultiType();
+            var parentClass = new OrderedSimpleTestClassMultiType();
             parentClass.Property1 = "test";
-            var castrClass = new CastrClass<SimpleTestClassMultiType>(
+            var castrClass = new CastrClass<OrderedSimpleTestClassMultiType>(
                 parentClass, new Options.ClassOptions()
                 {
                     IsStrict = isStrict

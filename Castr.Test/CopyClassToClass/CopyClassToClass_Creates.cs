@@ -10,13 +10,38 @@ namespace Castr.Test.CopyClassToClass
     public class CopyClassToClass_Creates
     {
         [Fact]
+        public void CopyClassToClass_SingleValue()
+        {
+            // Arrange
+            var sourceClass = new OrderedSimpleTestClassMultiType() 
+            { 
+                Property1 = "test",
+                Property2 = "test2"
+            };
+
+            var castrClass = new CastrClass<OrderedSimpleTestClassMultiType>(
+                sourceClass, new Options.ClassOptions() 
+                { 
+                    IsStrict = false
+                });
+
+            // Act
+            var newClass = castrClass.CastAsClass<SingleValue>();
+
+            /// Assert
+            Assert.Equal("test", newClass.Property1);
+        }
+
+
+
+        [Fact]
         public void CopyClassToClass_ContainsList()
         {
             // Arrange
             var sourceClass = new ClassContainsListOfClasses();
-            sourceClass.SimpleTestClasses = new List<SimpleTestClassMultiType>()
+            sourceClass.SimpleTestClasses = new List<OrderedSimpleTestClassMultiType>()
             {
-                new SimpleTestClassMultiType() {Property1 = "test"}
+                new OrderedSimpleTestClassMultiType() {Property1 = "test"}
             };
 
             var castrClass = new CastrClass<ClassContainsListOfClasses>(
@@ -34,7 +59,7 @@ namespace Castr.Test.CopyClassToClass
         {
             // Arrange
             var sourceClass = new ClassContainsListOfClasses();
-            sourceClass.SimpleTestClasses = new List<SimpleTestClassMultiType>();
+            sourceClass.SimpleTestClasses = new List<OrderedSimpleTestClassMultiType>();
 
             var castrClass = new CastrClass<ClassContainsListOfClasses>(
                 sourceClass, new Options.ClassOptions() { });

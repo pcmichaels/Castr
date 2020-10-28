@@ -18,6 +18,7 @@ namespace Castr
             _existingClass = existingClass;
             _classOptions = classOptions;
         }
+        
 
         public TNewClass CastAsClass<TNewClass>() where TNewClass : class
         {
@@ -47,6 +48,12 @@ namespace Castr
         public T CastAsStruct<T>() where T : struct
         {
             throw new NotImplementedException();
+        }
+
+        public T ExtractField<T>(string name)
+        {
+            var prop = typeof(TExistingClass).GetProperty(name);
+            return (T)prop.GetValue(_existingClass);
         }
     }
 }
