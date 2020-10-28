@@ -1,10 +1,10 @@
 ﻿using Castr.Conversion;
 using Castr.Exceptions;
 using Castr.Options;
+using Castr.Attributes;
 using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
+using System.Linq;
 using System.Text.RegularExpressions;
 
 namespace Castr.CSV
@@ -61,7 +61,9 @@ namespace Castr.CSV
         protected T CastAsClassSingleInstance<T>(string[] fields)
         {
             var newObject = Activator.CreateInstance<T>();
-            var properties = typeof(T).GetProperties();
+            var properties = typeof(T)
+                .GetProperties()
+                .OrderBy(a => ((OrderAttribute)a.GetCustomAttributes(typeof(OrderAttribute), false).FirstOrDefault())?.Order);
             int fieldIdx = 0;
 
             foreach (var prop in properties)
@@ -90,7 +92,9 @@ namespace Castr.CSV
         {
             // Have to box the reference first
             var newObject = (object)Activator.CreateInstance<T>();
-            var properties = typeof(T).GetProperties();
+            var properties = typeof(T)
+                .GetProperties()
+                .OrderBy(a => ((OrderAttribute)a.GetCustomAttributes(typeof(OrderAttribute), false).FirstOrDefault())?.Order);
             int fieldIdx = 0;
 
             foreach (var prop in properties)

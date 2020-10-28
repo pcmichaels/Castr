@@ -55,5 +55,19 @@ namespace Castr.CSV
         {
             _data = null;
         }
+
+        public T ExtractField<T>(string name)
+        {
+            if (!_csvOptions.IncludesHeaders)
+            {
+                throw new ExtractionException("Cannot extract field by name without headers");
+            }
+
+            int rowCount = EnsureFileIsSplit();
+
+            var data = _data.Single();
+            var index = _headers.TakeWhile(a => !(a == name)).Count();
+            return (T)Convert.ChangeType(data[index], typeof(T));
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace Castr.Test.ClassToSubClass
             // Arrange
             var parentClass = new ComplexTestClassParent()
             {
-                SimpleTestClass = new SimpleTestClassMultiType()
+                SimpleTestClass = new OrderedSimpleTestClassMultiType()
                 {
                     Property1 = "test",
                     Property2 = "test2",
@@ -52,7 +52,7 @@ namespace Castr.Test.ClassToSubClass
             // Arrange
             var parentClass = new ComplexTestClassParent()
             {
-                SimpleTestClass = new SimpleTestClassMultiType()
+                SimpleTestClass = new OrderedSimpleTestClassMultiType()
                 {
                     Property1 = "test",
                     Property2 = "test2",

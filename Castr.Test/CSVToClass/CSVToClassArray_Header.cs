@@ -18,7 +18,7 @@ namespace Castr.Test.CSVToClass
             var csv = new CastrCSVMulti(csvData, ",", true);
 
             // Act
-            var newClassEnumerable = csv.CastAsClassMulti<SimpleTestClassMultiType>();
+            var newClassEnumerable = csv.CastAsClassMulti<OrderedSimpleTestClassMultiType>();
 
             // Assert
             Assert.Single(newClassEnumerable);
@@ -55,7 +55,7 @@ namespace Castr.Test.CSVToClass
             var csv = new CastrCSVMulti(csvData, ",", true);
 
             // Act
-            var newClassEnumerable = csv.CastAsClassMulti<SimpleTestClassMultiType>();
+            var newClassEnumerable = csv.CastAsClassMulti<OrderedSimpleTestClassMultiType>();
 
             // Assert
             Assert.Equal(3, newClassEnumerable.Count());
@@ -77,7 +77,7 @@ namespace Castr.Test.CSVToClass
             });
 
             // Act
-            var newClassEnumerable = csv.CastAsClassMulti<SimpleTestClassMultiType>();
+            var newClassEnumerable = csv.CastAsClassMulti<OrderedSimpleTestClassMultiType>();
 
             // Assert
             Assert.Single(newClassEnumerable);

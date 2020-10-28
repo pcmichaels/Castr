@@ -17,7 +17,7 @@ namespace Castr.Test.CSVToClass
             var csv = new CastrCSV(csvData, ",", true);
 
             // Act
-            var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
+            var newClass = csv.CastAsClass<OrderedSimpleTestClassMultiType>();
 
             // Assert
             Assert.Equal("this", newClass.Property1);
@@ -41,7 +41,7 @@ namespace Castr.Test.CSVToClass
                 });
 
                 // Act
-                var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
+                var newClass = csv.CastAsClass<OrderedSimpleTestClassMultiType>();
             }
 
             // Assert
@@ -57,7 +57,7 @@ namespace Castr.Test.CSVToClass
             var csv = new CastrCSV(csvData, ",", true);
 
             // Act
-            var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
+            var newClass = csv.CastAsClass<OrderedSimpleTestClassMultiType>();
 
             // Assert
             Assert.Equal(1.032m, newClass.NumberPropertyOne);
@@ -85,7 +85,7 @@ namespace Castr.Test.CSVToClass
             });
 
             // Act
-            var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
+            var newClass = csv.CastAsClass<OrderedSimpleTestClassMultiType>();
 
             // Assert
             Assert.Equal(new DateTime(expectedYear, expectedMonth, expectedDay), newClass.DateProperty);            
@@ -113,7 +113,7 @@ namespace Castr.Test.CSVToClass
             });
 
             // Act
-            var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
+            var newClass = csv.CastAsClass<OrderedSimpleTestClassMultiType>();
 
             // Assert
             Assert.Equal(expectedBool, newClass.BoolProperty);
@@ -145,7 +145,7 @@ namespace Castr.Test.CSVToClass
             void Act()
             {
                 // Act
-                var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
+                var newClass = csv.CastAsClass<OrderedSimpleTestClassMultiType>();
             }
 
             // Assert
@@ -162,7 +162,7 @@ namespace Castr.Test.CSVToClass
             void Act()
             {
                 // Act
-                var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
+                var newClass = csv.CastAsClass<OrderedSimpleTestClassMultiType>();
             }
 
             // Assert
@@ -177,7 +177,7 @@ namespace Castr.Test.CSVToClass
             var csv = new CastrCSV(csvData, ",", true);
 
             // Act
-            var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
+            var newClass = csv.CastAsClass<OrderedSimpleTestClassMultiType>();
 
             // Assert
             Assert.Equal("this", newClass.Property1);
@@ -193,7 +193,7 @@ namespace Castr.Test.CSVToClass
             var csv = new CastrCSV(csvData, ",", true);
 
             // Act
-            var newClass = csv.CastAsClass<SimpleTestClassMultiType>();
+            var newClass = csv.CastAsClass<OrderedSimpleTestClassMultiType>();
 
             // Assert
             Assert.Equal("this", newClass.Property1);

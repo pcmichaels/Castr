@@ -4,7 +4,7 @@ using System.Text;
 
 namespace Castr.Test.TestData
 {
-    public class SimpleTestSubClass : SimpleTestClassMultiType
+    public class SimpleTestSubClass : OrderedSimpleTestClassMultiType
     {
         public string NewProperty { get; set; }
     }

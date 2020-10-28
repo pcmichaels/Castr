@@ -4,10 +4,8 @@ using System.Text;
 
 namespace Castr.Test.TestData
 {
-    public class ComplexTestClassParent
+    public class SingleValue
     {
         public string Property1 { get; set; }
-        public OrderedSimpleTestClassMultiType SimpleTestClass { get; set; }
-        
     }
 }
