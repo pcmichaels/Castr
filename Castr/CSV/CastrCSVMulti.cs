@@ -50,6 +50,12 @@ namespace Castr.CSV
             return classList;
         }
 
+        public IEnumerable<string[]> GetRawData()
+        {
+            int rowCount = EnsureFileIsSplit();
+            return _data;
+        }
+
         public void Dispose()
         {
             _data = null;

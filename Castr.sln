@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Castr", "Castr\Castr.csproj
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Castr.Test", "Castr.Test\Castr.Test.csproj", "{C480161C-9346-429C-B452-269403C8672E}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Castr.IntegrationTests", "Castr.IntegrationTests\Castr.IntegrationTests.csproj", "{4F6A77FC-A38B-4C4E-A1CB-83E1479161AB}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{C480161C-9346-429C-B452-269403C8672E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C480161C-9346-429C-B452-269403C8672E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C480161C-9346-429C-B452-269403C8672E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4F6A77FC-A38B-4C4E-A1CB-83E1479161AB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4F6A77FC-A38B-4C4E-A1CB-83E1479161AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4F6A77FC-A38B-4C4E-A1CB-83E1479161AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4F6A77FC-A38B-4C4E-A1CB-83E1479161AB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
