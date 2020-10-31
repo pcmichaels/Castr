@@ -42,3 +42,36 @@ var newClassEnumerable = csv.CastAsClassMulti<SimpleTestClass>();
 
 ```
 
+### Analysing a CSV without having a statically typed class
+
+Castr also supports extracting and processing the data from a CSV without having a statically 
+typed class to cast the data to.  For example:
+
+```csharp
+string csvData = File.ReadAllText("Data/stats.csv");
+var csv = new Castr.CSV.CastrCSVMulti(csvData, ",", true);
+
+var dataList = csv.GetRawData();
+
+foreach (var data in dataList)
+{   
+    string result = csv.ExtractField("total_corners", data);
+    DoSomethingWithData(result);
+}
+```
+
+This only works where there are header fields, otherwise, you can simply process the raw data.
+For example:
+
+```csharp
+string csvData = File.ReadAllText("Data/stats.csv");
+var csv = new Castr.CSV.CastrCSVMulti(csvData, ",", true);
+
+var dataList = csv.GetRawData();
+foreach (var data in dataList)
+{   
+    string result = data[3];
+    DoSomethingWithData(result);
+}
+
+```

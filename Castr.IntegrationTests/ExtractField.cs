@@ -3,6 +3,7 @@ using Castr.IntegrationTests.Models;
 using Castr.Options;
 using System;
 using System.IO;
+using System.Linq;
 using Xunit;
 
 namespace Castr.IntegrationTests
@@ -53,5 +54,18 @@ namespace Castr.IntegrationTests
             }
         }
 
+        [Fact]
+        public void ExtractSingleField_RawData()
+        {
+            string csvData = File.ReadAllText("Data/stats.csv");
+            var csv = new Castr.CSV.CastrCSVMulti(csvData, ",", true);
+
+            var dataList = csv.GetRawData();
+
+            var data = dataList.First();            
+                
+            string result = csv.ExtractField("total_corners", data);
+            Assert.Equal("7", result);            
+        }
     }
 }

@@ -27,5 +27,15 @@ namespace Castr
         /// An enumerable list of string arrays
         /// </returns>
         public IEnumerable<string[]> GetRawData();
+
+        /// <summary>
+        /// Find the specified field name in the data
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="data"></param>
+        /// <returns>
+        /// String containing the specified data, or null
+        /// </returns>
+        public string ExtractField(string fieldName, string[] data);
     }
 }
