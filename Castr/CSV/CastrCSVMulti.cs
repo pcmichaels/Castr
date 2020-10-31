@@ -69,5 +69,12 @@ namespace Castr.CSV
             if (data.Length < idx) return null;
             return data[idx];
         }
+
+        public T ExtractField<T>(string fieldName, string[] data)
+        {
+            string result = ExtractField(fieldName, data);
+            var fieldResult = (T)Convert.ChangeType(result, typeof(T));
+            return fieldResult;
+        }
     }
 }

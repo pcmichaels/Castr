@@ -37,5 +37,15 @@ namespace Castr
         /// String containing the specified data, or null
         /// </returns>
         public string ExtractField(string fieldName, string[] data);
+
+        /// <summary>
+        /// Find the specified field name in the data
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <param name="data"></param>
+        /// <returns>
+        /// A generic type containing the specified data, or null
+        /// </returns>
+        public T ExtractField<T>(string fieldName, string[] data);
     }
 }
