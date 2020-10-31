@@ -53,6 +53,12 @@ namespace Castr
         public T ExtractField<T>(string name)
         {
             var prop = typeof(TExistingClass).GetProperty(name);
+
+            if (prop == null)
+            {
+                throw new InvalidFieldException($"Unable to find {name}");
+            }
+
             return (T)prop.GetValue(_existingClass);
         }
     }

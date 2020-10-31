@@ -50,10 +50,24 @@ namespace Castr.CSV
             return classList;
         }
 
+        public IEnumerable<string[]> GetRawData()
+        {
+            int rowCount = EnsureFileIsSplit();
+            return _data;
+        }
+
         public void Dispose()
         {
             _data = null;
         }
 
+        public string ExtractField(string fieldName, string[] data)
+        {
+            int idx = Array.IndexOf(_headers, fieldName);
+            if (idx == -1) return null;
+
+            if (data.Length < idx) return null;
+            return data[idx];
+        }
     }
 }
