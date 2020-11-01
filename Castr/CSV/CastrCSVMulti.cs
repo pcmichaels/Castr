@@ -19,7 +19,6 @@ namespace Castr.CSV
             : base(csv, csvOptions)
         { }
 
-
         public IEnumerable<T> CastAsClassMulti<T>() where T : class
         {
             int rowCount = EnsureFileIsSplit();
@@ -63,11 +62,20 @@ namespace Castr.CSV
 
         public string ExtractField(string fieldName, string[] data)
         {
+            int? idx = GetHeaderIndex(fieldName);
+            if (idx == null || data.Length < idx) return null;
+
+            return data[idx.Value];
+        }
+
+        private int? GetHeaderIndex(string fieldName)
+        {
+            int rowCount = EnsureFileIsSplit();
+
             int idx = Array.IndexOf(_headers, fieldName);
             if (idx == -1) return null;
-
-            if (data.Length < idx) return null;
-            return data[idx];
+            
+            return idx;
         }
 
         public T ExtractField<T>(string fieldName, string[] data)
@@ -75,6 +83,25 @@ namespace Castr.CSV
             string result = ExtractField(fieldName, data);
             var fieldResult = (T)Convert.ChangeType(result, typeof(T));
             return fieldResult;
+        }
+
+        public string[] GetOptionsFor(string fieldName)
+        {
+            int? idx = GetHeaderIndex(fieldName);
+            if (idx == null) return null;
+
+            List<string> options = new List<string>();
+
+            foreach (var data in _data)
+            {
+                if (idx > data.Length) continue;
+                var foundData = data[idx.Value];
+
+                if (options.Contains(foundData)) continue;
+                options.Add(foundData);
+            }
+
+            return options.ToArray();
         }
     }
 }
