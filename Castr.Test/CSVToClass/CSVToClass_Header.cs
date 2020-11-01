@@ -4,6 +4,7 @@ using Castr.Options;
 using System;
 using Xunit;
 using Castr.CSV;
+using System.Linq;
 
 namespace Castr.Test.CSVToClass
 {
@@ -199,6 +200,35 @@ namespace Castr.Test.CSVToClass
             Assert.Equal("this", newClass.Property1);
             Assert.Equal("is", newClass.Property2);
             Assert.Null(newClass.Property3);
+        }
+
+        [Fact]
+        public void BasicCsvToClass_Multi_Converts()
+        {
+            // Arrange
+            string csvData = $"Property1,Property2{Environment.NewLine}this,is";
+            var csv = new CastrCSVMulti(csvData, ",", true);
+
+            // Act
+            var newClassList = csv.CastAsClassMulti<OrderedSimpleTestClassMultiType>();
+
+            // Assert
+            Assert.Single(newClassList);
+        }
+
+        [Fact]
+        public void BasicCsvToClass_Multi_ExtractField()
+        {
+            // Arrange
+            string csvData = $"Property1,Property2{Environment.NewLine}this,is";
+            var csv = new CastrCSVMulti(csvData, ",", true);
+            var rawData = csv.GetRawData();
+
+            // Act            
+            var field = csv.ExtractField<string>("Property1", rawData.First());
+
+            // Assert
+            Assert.Equal("this", field);
         }
 
     }
