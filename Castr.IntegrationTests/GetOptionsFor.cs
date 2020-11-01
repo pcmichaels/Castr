@@ -19,6 +19,9 @@ namespace Castr.IntegrationTests
             var options = csv.GetOptionsFor("home_team_name");
             Assert.Equal(20, options.Length);
 
+            var optionsHomeTeamCase = csv.GetOptionsFor("Home_team_name");
+            Assert.Equal(20, options.Length);
+
             var optionsStadium = csv.GetOptionsFor("stadium_name");
             Assert.Equal(20, options.Length);
         }

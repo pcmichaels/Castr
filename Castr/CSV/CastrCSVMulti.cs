@@ -71,8 +71,8 @@ namespace Castr.CSV
         private int? GetHeaderIndex(string fieldName)
         {
             int rowCount = EnsureFileIsSplit();
-
-            int idx = Array.IndexOf(_headers, fieldName);
+                       
+            int idx = Array.FindIndex(_headers, a => a.Equals(fieldName, StringComparison.OrdinalIgnoreCase));
             if (idx == -1) return null;
             
             return idx;
