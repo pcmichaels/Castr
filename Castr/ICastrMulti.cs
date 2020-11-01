@@ -47,5 +47,15 @@ namespace Castr
         /// A generic type containing the specified data, or null
         /// </returns>
         public T ExtractField<T>(string fieldName, string[] data);
+
+        /// <summary>
+        /// Traverses the entire data set to determine available options
+        /// May be slow
+        /// </summary>
+        /// <param name="fieldName"></param>
+        /// <returns>
+        /// A list of options based on existing data for the field in question
+        /// </returns>
+        public string[] GetOptionsFor(string fieldName);
     }
 }
