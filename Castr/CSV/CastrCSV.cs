@@ -69,5 +69,10 @@ namespace Castr.CSV
             var index = _headers.TakeWhile(a => !(a == name)).Count();
             return (T)Convert.ChangeType(data[index], typeof(T));
         }
+
+        public Dictionary<string, object> AsDictionary()
+        {
+            throw new NotImplementedException("Currently unsupported for CSV type");
+        }
     }
 }

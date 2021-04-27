@@ -18,7 +18,29 @@ namespace Castr
             _existingClass = existingClass;
             _classOptions = classOptions;
         }
-        
+
+        public CastrClass(TExistingClass existingClass)
+        {
+            _existingClass = existingClass;
+            _classOptions = new ClassOptions() { IsStrict = false };
+        }
+
+        public Dictionary<string, object> AsDictionary()
+        {
+            var dict = new Dictionary<string, object>();
+            var props = typeof(TExistingClass).GetProperties();
+
+            foreach (var prop in props)
+            {
+                var existingPropertyInfo = typeof(TExistingClass).GetProperty(prop.Name);
+                if (existingPropertyInfo == null || !existingPropertyInfo.CanRead) continue;
+                var value = existingPropertyInfo.GetValue(_existingClass);
+
+                dict.Add(prop.Name, value);
+            }
+
+            return dict;
+        }
 
         public TNewClass CastAsClass<TNewClass>() where TNewClass : class
         {
