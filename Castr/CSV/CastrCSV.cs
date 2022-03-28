@@ -30,7 +30,7 @@ namespace Castr.CSV
             }
 
             var data = _data.Single();
-            return CastAsClassSingleInstance<T>(data);
+            return base.CastAsClassSingleInstance<T>(data);
         }
 
         public T CastAsStruct<T>() where T : struct
@@ -48,7 +48,7 @@ namespace Castr.CSV
 
             var data = _data.Single();
 
-            return CastAsStructSingleInstance<T>(data);
+            return base.CastAsStructSingleInstance<T>(data);
         }
 
         public void Dispose()
@@ -68,6 +68,29 @@ namespace Castr.CSV
             var data = _data.Single();
             var index = _headers.TakeWhile(a => !(a == name)).Count();
             return (T)Convert.ChangeType(data[index], typeof(T));
+        }
+
+        public Dictionary<string, object> CastAsDictionary()
+        {
+            if (!_csvOptions.IncludesHeaders)
+            {
+                throw new ExtractionException("Cannot create dictionary without headers");
+            }
+
+            int rowCount = EnsureFileIsSplit();
+            if (rowCount != 1)
+            {
+                throw new InvalidSourceDataException("CastAsDictionary expects a single data row");
+            }
+
+            Dictionary<string, object> returnDictionary = new Dictionary<string, object>();
+
+            var data = _data.Single();
+            for (int i = 0; i < rowCount; i++)
+            {
+                returnDictionary.Add(_headers[i], data[i]);
+            }
+            return returnDictionary;
         }
     }
 }

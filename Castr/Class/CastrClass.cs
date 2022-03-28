@@ -61,5 +61,22 @@ namespace Castr
 
             return (T)prop.GetValue(_existingClass);
         }
+
+        public Dictionary<string, object> CastAsDictionary()
+        {
+            Dictionary<string, object> returnDictionary = new Dictionary<string, object>();
+            var props = typeof(TExistingClass).GetProperties();
+
+            foreach (var prop in props)
+            {
+                var existingPropertyInfo = typeof(TExistingClass).GetProperty(prop.Name);
+                if (existingPropertyInfo == null || !existingPropertyInfo.CanRead) continue;
+                var value = existingPropertyInfo.GetValue(_existingClass);
+
+                returnDictionary.Add(prop.Name, value);
+            }
+
+            return returnDictionary;
+        }
     }
 }
