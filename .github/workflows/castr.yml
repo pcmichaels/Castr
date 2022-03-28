@@ -23,7 +23,7 @@ jobs:
       run: dotnet build --configuration Release --no-restore
     - name: Test
       run: dotnet test --no-restore --verbosity normal
-   - name: Package
+    - name: Package
       run: dotnet pack -c Release -o . ./Castr/Castr.csproj
     - name: Publish
       run: dotnet nuget push *.nupkg -k ${{ secrets.NUGET_API_KEY }} -s https://api.nuget.org/v3/index.json --skip-duplicate
