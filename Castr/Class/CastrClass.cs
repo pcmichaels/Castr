@@ -18,7 +18,12 @@ namespace Castr
             _existingClass = existingClass;
             _classOptions = classOptions;
         }
-        
+
+        public CastrClass(TExistingClass existingClass)
+        {
+            _existingClass = existingClass;
+            _classOptions = new ClassOptions() { IsStrict = false };
+        }
 
         public TNewClass CastAsClass<TNewClass>() where TNewClass : class
         {
