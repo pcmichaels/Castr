@@ -14,6 +14,6 @@ namespace Castr
         /// Cast the class as a key / value pair dictionary
         /// </summary>
         /// <returns></returns>
-        Dictionary<string, object> AsDictionary();
+        Dictionary<string, object> CastAsDictionary();
     }
 }
