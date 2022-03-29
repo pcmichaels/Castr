@@ -71,5 +71,55 @@ namespace Castr.Test.CopyClassToClass
             Assert.Empty(newClass.SimpleTestClasses);
         }
 
+        [Fact]
+        public void CopyClassToClass__DoesNotMatch_NotCopied()
+        {
+            // Arrange
+            var sourceClass = new SimpleTestClassWithUnderscores()
+            {
+                Property_1 = "test",
+                Property_2 = "test2"
+            };
+
+            var castrClass = new CastrClass<SimpleTestClassWithUnderscores>(
+                sourceClass, new Options.ClassOptions()
+                {
+                    IsStrict = false,
+                    PropertyNameMustMatch = true
+                });
+
+            // Act
+            var newClass = castrClass.CastAsClass<SimpleTestClass>();
+
+            /// Assert
+            Assert.Null(newClass.Property1);
+            Assert.Null(newClass.Property2);
+        }
+
+        [Fact]
+        public void CopyClassToClass_DoesNotMatch_IgnoreUnderscores_Copied()
+        {
+            // Arrange
+            var sourceClass = new SimpleTestClassWithUnderscores()
+            {
+                Property_1 = "test",
+                Property_2 = "test2"
+            };
+
+            var castrClass = new CastrClass<SimpleTestClassWithUnderscores>(
+                sourceClass, new Options.ClassOptions()
+                {
+                    IsStrict = false,
+                    PropertyNameMustMatch = false,
+                    PropertyNameRemoveUnderscores = true
+                });
+
+            // Act
+            var newClass = castrClass.CastAsClass<SimpleTestClass>();
+
+            /// Assert
+            Assert.Equal("test", newClass.Property1);
+        }
+
     }
 }
