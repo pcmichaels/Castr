@@ -4,7 +4,7 @@
     <TargetFramework>net6.0</TargetFramework>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
-    <Version>2.1.2.0</Version>
+    <Version>2.1.2.1</Version>
     <Authors>Paul Michaels</Authors>
     <Description>Easily parse CSV input files, cast between types</Description>
     <PackageIcon>castr.png</PackageIcon>
