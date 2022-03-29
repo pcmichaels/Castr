@@ -8,9 +8,9 @@ namespace Castr.Class
 {
     public class CastrClassMulti<TExistingClass> : ICastrMulti
     {
-        private readonly IList<TExistingClass> _existingClassList;
+        private readonly IEnumerable<TExistingClass> _existingClassList;
 
-        public CastrClassMulti(IList<TExistingClass> existingClassList)
+        public CastrClassMulti(IEnumerable<TExistingClass> existingClassList)
         {
             _existingClassList = existingClassList;
         }
