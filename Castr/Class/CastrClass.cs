@@ -3,6 +3,7 @@ using Castr.Helpers;
 using Castr.Options;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Castr
@@ -35,13 +36,28 @@ namespace Castr
 
             var newObject = Activator.CreateInstance<TNewClass>();
             var newProps = typeof(TNewClass).GetProperties();
+            var existingProps = typeof(TExistingClass).GetProperties();
 
             foreach (var prop in newProps)
             {
                 if (!prop.CanWrite) continue;
 
                 var existingPropertyInfo = typeof(TExistingClass).GetProperty(prop.Name);
-                if (existingPropertyInfo == null || !existingPropertyInfo.CanRead) continue;
+                if (_classOptions.PropertyNameMustMatch && existingPropertyInfo == null) continue;
+
+                if (existingPropertyInfo == null && _classOptions.PropertyNameRemoveUnderscores)
+                {
+                    var matches = existingProps.Where(x => CompareCaseInsensitiveIgnoreUnderscore(x.Name, prop.Name));
+                    if (!matches.Any()) continue;
+                    if (matches.Count() > 1)
+                    {
+                        throw new Exception("Multiple possible mappings");
+                    }
+                    existingPropertyInfo = matches.Single();
+                }
+                
+                if (!(existingPropertyInfo?.CanRead ?? false)) continue;
+
                 var value = existingPropertyInfo.GetValue(_existingClass);
                 
                 prop.SetValue(newObject, value, null);
@@ -49,6 +65,10 @@ namespace Castr
 
             return newObject;
         }
+
+        private bool CompareCaseInsensitiveIgnoreUnderscore(string textA, string textB) =>
+            string.Compare(textA.Replace("_", string.Empty), 
+                           textB.Replace("_", string.Empty), true) == 0;        
 
         public T CastAsStruct<T>() where T : struct
         {
