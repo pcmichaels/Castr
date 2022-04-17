@@ -18,12 +18,16 @@ namespace Castr.CSV
         
         protected CsvOptions _csvOptions = new CsvOptions();
 
+        public CastrCSVBase(CsvOptions csvOptions)
+        {
+            _csvOptions = csvOptions;
+        }
+
         public CastrCSVBase(string csv, CsvOptions csvOptions)
         {
             _csv = csv;
             _csvOptions = csvOptions;
         }
-
 
         protected List<string[]> SplitFile()
         {

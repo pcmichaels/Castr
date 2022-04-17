@@ -3,11 +3,15 @@ using Castr.Options;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace Castr.CSV
 {
-    public class CastrCSVMulti : CastrCSVBase, ICastrMulti, IDisposable
+    public class CastrCSVMulti : CastrCSVBase, ICastrMulti, ICSV, IDisposable
     {
+        public CastrCSVMulti(string delimiter, bool includesHeaders)
+            : base(new CsvOptions(includesHeaders: includesHeaders, delimiter: delimiter)) { }
+
         public CastrCSVMulti(string csv, string delimiter) 
             : base(csv, new CsvOptions(delimiter: delimiter)) { }
 
@@ -104,5 +108,35 @@ namespace Castr.CSV
             return options.ToArray();
         }
 
+        public string CastAsCSV<T>(IEnumerable<T> toConvert) where T : class
+        {
+            var csvOut = new StringBuilder();
+
+            var properties = typeof(T).GetProperties();
+
+            if (_csvOptions.IncludesHeaders)
+            {                
+                csvOut.AppendLine(string.Join(_csvOptions.Delimiter, 
+                    properties.Select(a => a.Name)));
+            }
+
+            foreach (var eachClass in toConvert)
+            {
+                string csvLine = string.Empty;
+                foreach (var property in properties)
+                {
+                    var existingPropertyInfo = typeof(T).GetProperty(property.Name);
+                    if (existingPropertyInfo == null || !existingPropertyInfo.CanRead) continue;
+                    var value = existingPropertyInfo.GetValue(eachClass);
+
+                    if (csvLine.Length > 0) csvLine += $",{value.ToString()}";
+                    else csvLine = value.ToString();
+                }
+
+                csvOut.AppendLine(csvLine);
+            }
+
+            return csvOut.ToString();
+        }
     }
 }
