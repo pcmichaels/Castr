@@ -12,5 +12,16 @@ namespace Castr.Extensions
             var dict = castr.AsDictionary();
             return dict;
         }
+
+        public static string AsCSV(this Dictionary<string, string> dict) 
+        { 
+            var sb = new StringBuilder();
+
+            foreach (var itm in dict) 
+            {
+                sb.AppendLine($"{itm.Key},{itm.Value}");
+            }
+            return sb.ToString();
+        }
     }
 }
