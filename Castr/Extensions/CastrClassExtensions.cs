@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Text;
 
@@ -23,5 +24,17 @@ namespace Castr.Extensions
             }
             return sb.ToString();
         }
+
+        public static string AsCSV(this ConcurrentDictionary<string, string> dict)
+        {
+            var sb = new StringBuilder();
+
+            foreach (var itm in dict)
+            {
+                sb.AppendLine($"{itm.Key},{itm.Value}");
+            }
+            return sb.ToString();
+        }
+
     }
 }
