@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Text;
 
 namespace Castr.CSV
 {
@@ -36,20 +37,43 @@ namespace Castr.CSV
             string[] lines = _csv.Split(_newLineDelimiter, StringSplitOptions.RemoveEmptyEntries);
             foreach (string line in lines)
             {
-                string[] fields = line.Split(_csvOptions.Delimiter.ToCharArray());
+                List<string> fields = new List<string>();
+                StringBuilder fieldBuilder = new StringBuilder();
+                bool insideQuotes = false;
+
+                for (int i = 0; i < line.Length; i++)
+                {
+                    if (line.Substring(i).StartsWith(_csvOptions.Delimiter) && !insideQuotes)
+                    {
+                        fields.Add(fieldBuilder.ToString().Trim());
+                        fieldBuilder.Clear();
+                        i += _csvOptions.Delimiter.Length - 1;
+                    }
+                    else if (line[i] == '\"')
+                    {
+                        insideQuotes = !insideQuotes;
+                    }
+                    else
+                    {
+                        fieldBuilder.Append(line[i]);
+                    }
+                }
+
+                fields.Add(fieldBuilder.ToString().Trim());
 
                 if (_csvOptions.IncludesHeaders && _headers == null)
                 {
-                    _headers = fields;
+                    _headers = fields.ToArray();
                 }
                 else
                 {
-                    _data.Add(fields);
+                    _data.Add(fields.ToArray());
                 }
             }
 
             return _data;
         }
+
 
         protected int EnsureFileIsSplit()
         {

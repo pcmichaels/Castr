@@ -43,6 +43,23 @@ namespace Castr.Test.CSVToClass
         }
 
         [Fact]
+        public void BasicCsvToClass_MultiCharDelimiter_Converts()
+        {
+            // Arrange
+            string csvData = $"Property1,Property2,Property3{Environment.NewLine}\"this, data\"@~is@~data";
+            var csv = new CastrCSV(csvData, "@~", true);
+
+            // Act
+            var newClass = csv.CastAsClass<OrderedSimpleTestClassMultiType>();
+
+            // Assert
+            Assert.Equal("this, data", newClass.Property1);
+            Assert.Equal("is", newClass.Property2);
+            Assert.Equal("data", newClass.Property3);
+        }
+
+
+        [Fact]
         public void BasicCsvToClass_StrictHeaderAndIncludesHeaders_Throws()
         {
             void RunTest()
